@@ -1,0 +1,81 @@
+var todos = [];
+
+var addTodoForm = document.querySelector("#addTodoForm");
+var listGroup = document.querySelector(".list-group-item");
+
+function createListItem(todoValue, todoIndex) {
+  var li = document.createElement("Li");
+  li.setAttribute("class", "list-group-item");
+  li.innerHTML = todoValue;
+
+  //Create Span
+  var span = document.createElement("span");
+  span.innerHTML = todoValue;
+  li.appendChild(span);
+
+  // Create icon
+  var icon = document.createElement("i");
+  icon.setAttribute("class", "fas fa-trash-alt");
+
+  icon.addEventListener("click", function (event) {
+    // Remove li from dom
+    console.log(event.target);
+    event.target.parentElement.remove();
+    //Remove li from todos Array
+    todos.splice(todoIndex, 1);
+    //Remove li from localStorage
+    localStorage.setItem("todos", JSON.stringify(todos));
+  });
+
+  li.appendChild(icon);
+
+  return li;
+}
+
+function renderTodos(todoValue) {
+  todos.forEach(function (todo, index) {
+    var li = createListItem(todo.value, index);
+    listGroup.appendChild(li);
+  });
+}
+
+//Check if todos Exist in local storage
+var storedTodos = localStorage.getItem("todos");
+// if Exist
+if (storedTodos) {
+  var parsedStoredTodos = JSON.parse(storedTodos);
+  todos = parsedStoredTodos;
+  renderTodos(todos);
+  console.log(parsedStoredTodos);
+}
+// Json.stringify parse todos
+// loop over array and Create li element append  to the dom.
+
+addTodoForm.addEventListener("submit", function (event) {
+  //page refresh hona band ho jaayega
+  event.preventDefault();
+  //console.log("hi");
+
+  console.log();
+  //Access input tag values
+
+  var todoValue = addTodoForm.todo.value;
+
+  //push to do array
+  todos.push({
+    value: todoValue,
+    completed: false,
+  });
+
+  addTodoForm.todo.value = "";
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+
+  //Render the complete list
+  //create list
+  //set innerHtml value
+  //set list-group item class
+
+  var li = createListItem(todoValue);
+  listGroup.appendChild(li);
+});

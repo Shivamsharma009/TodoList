@@ -1,0 +1,6 @@
+//hamai pura page refresh nahi karna hai . page refresh hona band ho jaayega
+//event.preventDefault() se
+
+//button ke two type hote hai button type submit
+//button or submit agar button type diya toh woh form ko submit nahi karega
+//submit par hi work karega

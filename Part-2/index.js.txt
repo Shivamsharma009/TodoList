@@ -1,0 +1,57 @@
+var todos = [];
+
+var addTodoForm = document.querySelector("#addTodoForm");
+
+var listGroup = document.querySelector(".list-group-item");
+
+function renderTodos(todos) {
+  todos.forEach(function (todo) {
+    var li = document.createElement("Li");
+    li.setAttribute("class", "list-group-item");
+    li.innerHTML = todo.value;
+    listGroup.appendChild(li);
+  });
+}
+
+//Check if todos Exist in local storage
+var storedTodos = localStorage.getItem("todos");
+// if Exist
+if (storedTodos) {
+  var parsedStoredTodos = JSON.parse(storedTodos);
+  todos = parsedStoredTodos;
+  renderTodos(todos);
+  console.log(parsedStoredTodos);
+}
+// Json.stringify parse todos
+// loop over array and Create li element append  to the dom.
+
+addTodoForm.addEventListener("submit", function (event) {
+  //page refresh hona band ho jaayega
+  event.preventDefault();
+  //console.log("hi");
+
+  console.log();
+  //Access input tag values
+
+  var todoValue = addTodoForm.todo.value;
+
+  localStorage.setItem("todos", JSON.stringify(todos));
+
+  //push to do array
+  todos.push({
+    value: todoValue,
+    completed: false,
+  });
+
+  addTodoForm.todo.value = "";
+
+  //Render the complete list
+  //create list
+  //set innerHtml value
+  //set list-group item class
+
+  var li = document.createElement("Li");
+  li.setAttribute("class", "list-group-item");
+  li.innerHTML = todoValue;
+  listGroup.appendChild(li);
+});

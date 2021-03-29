@@ -1,0 +1,20 @@
+var todos = [];
+
+var addTodoForm = document.querySelector("#addTodoForm");
+
+addTodoForm.addEventListener("submit", function (event) {
+  //page refresh hona band ho jaayega
+  event.preventDefault();
+  //console.log("hi");
+
+  console.log();
+  //Access input tag values
+
+  //push to do array
+  todos.push({
+    value: addTodoForm.todo.value,
+    completed: false,
+  });
+
+  addTodoForm.todo.value = "";
+});
